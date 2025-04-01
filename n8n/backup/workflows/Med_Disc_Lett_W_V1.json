@@ -1,0 +1,2972 @@
+{
+  "name": "Med_Disc_Lett_W_V1",
+  "nodes": [
+    {
+      "id": "78fc0ec1-3834-4e02-abac-083bf8320ea9",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -500,
+        -240
+      ],
+      "parameters": {
+        "color": 7,
+        "width": 740,
+        "height": 660,
+        "content": "# PROMPT-CHAINING\nPrompt chaining decomposes a task into a sequence of steps, where each LLM call processes the output of the previous one.\n\n![Image Description](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F7418719e3dab222dccb379b8879e1dc08ad34c78-2401x1000.png&w=3840&q=75)\n## When to use this workflow: \nThis workflow is ideal for situations where the task can be easily and cleanly decomposed into fixed subtasks. The main goal is to trade off latency for higher accuracy, by making each LLM call an easier task.\n\nBenefits\n- Breaking down the work into simpler chunks, making it easier for each of the LLM to work on.\n- Allows for more flexibility, being able to use different model in each stage of a task.\n- Easier to debug, as the process is divided into simpler parts."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "a8e5bc3a-9409-46ad-b608-7189ed5b0c35",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -500,
+        480
+      ],
+      "parameters": {
+        "color": 7,
+        "width": 740,
+        "height": 580,
+        "content": "# ROUTING\nRouting classifies an input and directs it to a specialized followup task. This workflow allows for separation of concerns, and building more specialized prompts. Without this workflow, optimizing for one kind of input can hurt performance on other inputs.\n\n![Image Description](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F5c0c0e9fe4def0b584c04d37849941da55e5e71c-2401x1000.png&w=3840&q=75)\n## When to use this workflow: \nRouting works well for complex tasks where there are distinct categories that are better handled separately, and where classification can be handled accurately, either by an LLM or a more traditional classification model/algorithm."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "5946b8af-8e15-4b9a-a06d-e3f9c4b06372",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -500,
+        1140
+      ],
+      "parameters": {
+        "color": 7,
+        "width": 740,
+        "height": 700,
+        "content": "# Parallelization\nLLMs can sometimes work simultaneously on a task and have their outputs aggregated programmatically. This workflow, parallelization, manifests in two key variations:\n## Sectioning: \nBreaking a task into independent subtasks that run in parallel.\n## Voting: \nRunning the same task multiple times to get diverse outputs.\n![Image Description](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F406bb032ca007fd1624f261af717d70e6ca86286-2401x1000.png&w=3840&q=75)\n## When to use this workflow: \nParallelization is effective when the divided subtasks can be parallelized for speed, or when multiple perspectives or attempts are needed for higher confidence results. For complex tasks with multiple considerations, LLMs generally perform better when each consideration is handled by a separate LLM call, allowing focused attention on each specific aspect."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "aaf569ed-b582-466a-8ef1-11273bf52f7d",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -500,
+        1900
+      ],
+      "parameters": {
+        "color": 7,
+        "width": 740,
+        "height": 560,
+        "content": "# Orchestrator-workers\nIn the orchestrator-workers workflow, a central LLM dynamically breaks down tasks, delegates them to worker LLMs, and synthesizes their results.\n![Image Description](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F8985fc683fae4780fb34eab1365ab78c7e51bc8e-2401x1000.png&w=3840&q=75)\n## When to use this workflow: \nThis workflow is well-suited for complex tasks where you can’t predict the subtasks needed (in coding, for example, the number of files that need to be changed and the nature of the change in each file likely depend on the task). Whereas it’s topographically similar, the key difference from parallelization is its flexibility—subtasks aren't pre-defined, but determined by the orchestrator based on the specific input."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "d60c8346-f9c3-4104-a0e8-cb76f7eaed11",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -500,
+        2520
+      ],
+      "parameters": {
+        "color": 7,
+        "width": 740,
+        "height": 600,
+        "content": "# Evaluator-optimizer\nIn the evaluator-optimizer workflow, one LLM call generates a response while another provides evaluation and feedback in a loop.\n![Image Description](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F14f51e6406ccb29e695da48b17017e899a6119c7-2401x1000.png&w=3840&q=75)\n## When to use this workflow: \nThis workflow is particularly effective when we have clear evaluation criteria, and when iterative refinement provides measurable value. The two signs of good fit are, first, that LLM responses can be demonstrably improved when a human articulates their feedback; and second, that the LLM can provide such feedback. This is analogous to the iterative writing process a human writer might go through when producing a polished document.\n\n"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "133eeba0-a42a-4c41-881e-da25ae530854",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -500,
+        3180
+      ],
+      "parameters": {
+        "color": 7,
+        "width": 740,
+        "height": 820,
+        "content": "# Agents\nAgents rely on LLMs’ abilities to understand complex inputs, reason and plan, use tools reliably, and recover from errors. They typically start with either a direct command or an interactive conversation with the user. Once the task is clear, agents plan and operate on their own, but can return to the user for additional information or judgment. During execution, it’s important for them to gather real-time feedback (such as tool results or code execution outputs) to monitor progress. They may pause for human input at checkpoints or when facing obstacles. Tasks usually end upon completion, though stopping conditions (like a maximum number of iterations) are often set for control.\n\nEven though agents can manage complex tasks, their implementation is generally straightforward. They are essentially LLMs that loop through tool usage based on feedback from the environment. As a result, it’s crucial to design both the tools and their documentation with care.\n![Image Description](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F58d9f10c985c4eb5d53798dea315f7bb5ab6249e-2401x1000.png&w=3840&q=75)\n## When to use this workflow: \nAgents can be used for open-ended problems where it’s difficult or impossible to predict the required number of steps, and where you can’t hardcode a fixed path. The LLM will potentially operate for many turns, and you must have some level of trust in its decision-making. Agents' autonomy makes them ideal for scaling tasks in trusted environments.\n\nThe autonomous nature of agents means higher costs, and the potential for compounding errors. We recommend extensive testing in sandboxed environments, along with the appropriate guardrails.\n\n"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "9e1328d8-9b3c-41a2-840e-8a3c2e0dd6af",
+      "name": "2.0 Flash Thinking",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "position": [
+        620,
+        160
+      ],
+      "parameters": {
+        "options": {},
+        "modelName": "models/gemini-2.0-flash-thinking-exp"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "27e344fc-a600-4ffa-83c4-eee05a0f4009",
+      "name": "Report Generator",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1180,
+        -20
+      ],
+      "parameters": {
+        "text": "=Write a detailed report in html for the following topic: \"{{ $('Prompt Chaining').item.json.topic }}}\"\n\nfollowing this outline:\n{{ $json.output }}\n\n",
+        "options": {},
+        "promptType": "define"
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "e88986aa-0d58-4afe-8f64-3193fa03b89f",
+      "name": "O3-MINI",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        920,
+        180
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "o3-mini",
+          "cachedResultName": "o3-mini"
+        },
+        "options": {}
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "6669105e-7af4-491d-b058-a195a65cf615",
+      "name": "Claude 3.5 Sonnet",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "position": [
+        1180,
+        180
+      ],
+      "parameters": {
+        "options": {}
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "812ee9c9-9032-4689-9321-823118bc3ef7",
+      "name": "Text Classifier",
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "position": [
+        720,
+        680
+      ],
+      "parameters": {
+        "options": {},
+        "inputText": "=Your objective is to clearly understand what kind of content the user expects based on their request: {{ $json.chatInput }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Poem",
+              "description": "User is asking for a poem on a topic"
+            },
+            {
+              "category": "Joke",
+              "description": "User is asking for a joke on a topic"
+            },
+            {
+              "category": "Story",
+              "description": "User is asking for a story on a topic"
+            },
+            {
+              "category": "Not Clear",
+              "description": "If it is not clear what kind of content the user wants."
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "40856d96-edf0-4aad-9b2a-5768e1593365",
+      "name": "Poem Generator",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1200,
+        520
+      ],
+      "parameters": {
+        "options": {}
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "d3470365-9ace-407e-9616-2f982f2a1753",
+      "name": "Joke Generator",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1200,
+        660
+      ],
+      "parameters": {
+        "options": {}
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "f40eae3a-f4ba-4018-95bd-0fcee557a50b",
+      "name": "Story Generator",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1200,
+        800
+      ],
+      "parameters": {
+        "options": {}
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "110cae3e-e267-424a-b6f1-0091243430b7",
+      "name": "Error Message",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1200,
+        940
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "{\n  \"output\":  \"I'm not sure what type of content you're. Could you clarify if you'd like a **Poem**, a **Joke**, or a **Story**?\"\n}\n"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "10d3206c-04d2-4eba-aaa4-855df9a063ff",
+      "name": "O3-mini-Routing",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        860,
+        940
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "o3-mini",
+          "cachedResultName": "o3-mini"
+        },
+        "options": {}
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "965ae8e5-456b-4afc-beee-6a33a6431e0b",
+      "name": "Hotel Finder",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        820,
+        1420
+      ],
+      "parameters": {
+        "text": "=Search for top-rated hotels based on \"{{ $json.chatInput }}\".  \nProvide a concise list including hotel names, price ranges, star ratings, and brief highlights.\n\nInstruction: Always use the SERP API tool.",
+        "options": {},
+        "promptType": "define"
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "d6502130-eeb0-4dda-a89c-cba20e2407ff",
+      "name": "Restaurant Finder",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        820,
+        1220
+      ],
+      "parameters": {
+        "text": "=Search for top-rated restaurants based on \"{{ $json.chatInput }}\".  \nList 5 recommended restaurants, each with a short description highlighting cuisine type, rating, and popular dishes.\n\nInstruction: Always use the SERP API tool.",
+        "options": {},
+        "promptType": "define"
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "f9af358f-d2c6-44d6-b54f-97093c9a2ec6",
+      "name": "SerpAPI",
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "position": [
+        620,
+        1620
+      ],
+      "parameters": {
+        "options": {}
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "8ba743dc-79ef-4e79-bdda-8571f42f7ab6",
+      "name": "Activity Finder",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        820,
+        1620
+      ],
+      "parameters": {
+        "text": "=Search for popular tourist attractions and activities based on \"{{ $json.chatInput }}\".  \nGenerate a short list including activity names, types (cultural, outdoor, etc.), and brief descriptions.\n\nInstruction: Always use the SERP API tool.",
+        "options": {},
+        "promptType": "define"
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "c3fbd3f4-fdb6-4873-bef9-e248fc5d3792",
+      "name": "Aggregator",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1520,
+        1420
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "={\n  \"output\": {{ JSON.stringify(`\n🏨 Hotels Recommendations:\n${$('Merge').all()[0].json.output}\n\n👨‍🍳 Restaurant Recommendations:\n${$('Merge').all()[1].json.output}\n\n\n🎯 Activity Recommendations:\n${$('Merge').all()[2].json.output}\n`) }}\n}"
+      },
+      "executeOnce": true,
+      "typeVersion": 3.4
+    },
+    {
+      "id": "ae07d30e-f68f-428f-94ec-f62b5f083fcf",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        1360,
+        1420
+      ],
+      "parameters": {
+        "numberInputs": 3
+      },
+      "executeOnce": false,
+      "typeVersion": 3
+    },
+    {
+      "id": "e7a20a8d-9120-434e-bf77-c0e9fa4bc8cb",
+      "name": "OpenAI CopyWriter",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        2560,
+        1180
+      ],
+      "parameters": {
+        "text": "=You are a creative copywriter.\nThe user wants 3 short, catchy slogans for their brand or product: \"{{ $json.chatInput }}\".\nEmphasize originality, memorability, and brand appeal in each slogan.\nDo not include any extraneous details or explanations.\n\nFormat your response as follows:\n1. ...\n2. ...\n3. ...",
+        "options": {},
+        "promptType": "define"
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "53e691e0-3219-4f18-a4bc-cb4b8517b686",
+      "name": "Anthropic CopyWriter",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        2560,
+        1420
+      ],
+      "parameters": {
+        "text": "=You are a creative copywriter.\nThe user wants 3 short, catchy slogans for their brand or product: \"{{ $json.chatInput }}\".\nEmphasize originality, memorability, and brand appeal in each slogan.\nDo not include any extraneous details or explanations.\n\nFormat your response as follows:\n1. ...\n2. ...\n3. ...",
+        "options": {},
+        "promptType": "define"
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "d915bbd3-de4b-432a-ad8b-e33afeb398c5",
+      "name": "Gemini CopyWriter",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        2560,
+        1660
+      ],
+      "parameters": {
+        "text": "=You are a creative copywriter.\nThe user wants 3 short, catchy slogans for their brand or product: \"{{ $json.chatInput }}\".\nEmphasize originality, memorability, and brand appeal in each slogan.\nDo not include any extraneous details or explanations.\n\nFormat your response as follows:\n1. ...\n2. ...\n3. ...",
+        "options": {},
+        "promptType": "define"
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "249b2d9f-b4ff-467d-a4d1-79c6101e62d8",
+      "name": "2.0 Flash CW",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "position": [
+        2560,
+        1300
+      ],
+      "parameters": {
+        "options": {},
+        "modelName": "models/gemini-2.0-flash-thinking-exp"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "85a24b72-87e8-4434-a250-acc74278a26f",
+      "name": "Claude 3.5 CW",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "position": [
+        2560,
+        1540
+      ],
+      "parameters": {
+        "options": {}
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "bc925ae4-850b-44f4-a1fd-fdfb9e44b6fa",
+      "name": "O3-MINI CW",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        2560,
+        1780
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "o3-mini",
+          "cachedResultName": "o3-mini"
+        },
+        "options": {}
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "98f47a2a-5779-4561-9eed-3b337f7af2d8",
+      "name": "Voting Merge",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        3100,
+        1460
+      ],
+      "parameters": {
+        "numberInputs": 3
+      },
+      "typeVersion": 3
+    },
+    {
+      "id": "8eeb0413-80f5-4217-b260-6a8a779e7163",
+      "name": "CW Aggregator",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        3300,
+        1460
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "={\n  \"output\": {{ JSON.stringify(`\n2.0 Flash:\n${$('Voting Merge').all()[0].json.output}\n\nClaude 3.5:\n${$('Voting Merge').all()[1].json.output}\n\nO3-MINI:\n${$('Voting Merge').all()[2].json.output}\n`) }}\n}"
+      },
+      "executeOnce": true,
+      "typeVersion": 3.4
+    },
+    {
+      "id": "b16cd86b-064d-4d49-abf9-9e60a5969255",
+      "name": "Sectioning Demo",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        1720,
+        1420
+      ],
+      "webhookId": "080228b9-3925-4009-8241-9b3854616590",
+      "parameters": {
+        "sendTo": "mahmutktech98@gmail.com",
+        "message": "={{ $json.output }}",
+        "options": {},
+        "subject": "Copy Writer Demo",
+        "emailType": "text"
+      },
+      "typeVersion": 2.1
+    },
+    {
+      "id": "206ff04e-a7ff-42c6-aef3-367ba1d56fbd",
+      "name": "CW Demo",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        3500,
+        1460
+      ],
+      "webhookId": "080228b9-3925-4009-8241-9b3854616590",
+      "parameters": {
+        "sendTo": "mahmutktech98@gmail.com",
+        "message": "={{ $json.output }}",
+        "options": {},
+        "subject": "Copy Writer Demo",
+        "emailType": "text"
+      },
+      "typeVersion": 2.1
+    },
+    {
+      "id": "8c84fe48-f6e0-4b08-a419-46e909ba4ec8",
+      "name": "Evaluator",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1440,
+        2660
+      ],
+      "parameters": {
+        "text": "=Email Content: {{$json.output}}",
+        "options": {
+          "systemMessage": "=You are the Email Evaluator for TechSpark\n\nYou will receive an email content\n\nEvaluate the email based on:\n- Clarity and completeness.\n- Tone (professional, friendly, etc.).\n- Proper sign-off as \"John Doe\".\n- Text should not include the \"Subject\"\n\nReturn your evaluation as valid JSON with one of the following formats:\n\n1. If the email passes all criteria:\n{\n  \"pass\": true\n}\n\n2. If the email does not meet all criteria:\n{\n  \"pass\": false,\n  \"feedback\": \"Provide concise, actionable suggestions here.\"\n}\n\nNo extra keys or text outside the JSON structure."
+        },
+        "promptType": "define",
+        "hasOutputParser": true
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "c2f0823c-8fbe-466e-b423-de854228fde0",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1760,
+        2660
+      ],
+      "parameters": {
+        "options": {},
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c7cd25e9-31ab-4c2a-8880-0148aea726c2",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.output.pass }}",
+              "rightValue": ""
+            }
+          ]
+        }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "f097f1f0-48b8-42bb-a17d-124fca005522",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "position": [
+        1620,
+        2880
+      ],
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"pass\": true,\n\t\"feedback\": \"this is empty when pass is true\"\n}"
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "829624e3-3752-436e-b1ca-eb919e4de113",
+      "name": "EO - o3 mini",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        1100,
+        2920
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "o3-mini",
+          "cachedResultName": "o3-mini"
+        },
+        "options": {}
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "6085eabd-fd08-43f7-8af8-92769a59654a",
+      "name": "Gmail Trigger",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "position": [
+        340,
+        2680
+      ],
+      "parameters": {
+        "simple": false,
+        "filters": {},
+        "options": {},
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "63cd4cd1-a720-4174-9a17-dee452bf693e",
+      "name": "Customer Support",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1060,
+        2660
+      ],
+      "parameters": {
+        "text": "={{ $json.text }}",
+        "options": {
+          "systemMessage": "=You are a Customer Support Specialist at TechSpark Solutions.\n\nYou will be provided with a customer inquiry\n\nPrepare a concise, polite, and helpful email response addressing the customer’s question or concern.  \n\nOutput only the final email text—no extra commentary or formatting.\n\n\n\n<feedback> (if any)\n{{ $json.feedback }}\n\n\n<preparedEmail> (if an email is already prepared, this is what the feedback is on)\n{{ $json.currentEmail }}\n</preparedEmail>\n</feedback>"
+        },
+        "promptType": "define"
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "7281218b-1580-4d26-9331-97794c20f11c",
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        2060,
+        2640
+      ],
+      "webhookId": "58be091c-293b-4fcc-8c56-56da568e0637",
+      "parameters": {
+        "message": "={{ $('Customer Support').last().json.output }}",
+        "options": {},
+        "resource": "thread",
+        "threadId": "={{ $('Gmail Trigger').first().json.threadId }}",
+        "messageId": "={{ $('Gmail Trigger').first().json.id }}",
+        "operation": "reply"
+      },
+      "typeVersion": 2.1
+    },
+    {
+      "id": "789b5346-3971-4b7d-b3bc-6436eea2e82d",
+      "name": "feedback",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1340,
+        2900
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "={\n  \"currentEmail\": {{ JSON.stringify($('Customer Support').last().json.output) }},\n  \"feedback\": {{  JSON.stringify($json.output.feedback) }},\n  \"text\": {{  JSON.stringify($('Gmail Trigger').first().json.text) }}\n}"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "b2a6357f-7ef9-4e9e-b208-ff7169ff5f67",
+      "name": "Classify Email",
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "position": [
+        620,
+        2680
+      ],
+      "parameters": {
+        "options": {
+          "systemPromptTemplate": "You are a text classifier at TechSpark Solutions.\nPlease classify the text provided by the user into one of the following categories: {categories}, and use the provided formatting instructions below. Don't explain, and only output the json."
+        },
+        "inputText": "={{ $json.text }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Customer Inquiry",
+              "description": "Text where the user requests assistance, more information, or expresses a concern about a product or service."
+            },
+            {
+              "category": "No Action Required",
+              "description": "Text that does not ask a question, seek information, or require a direct response."
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "91f8b2e7-f843-49bd-bdd1-18a6bacafaf0",
+      "name": "Sectioning",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        560,
+        1440
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "{\n  \"chatInput\": \"Taksim, Istanbul\"\n}\n"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "1fcb6b6f-5661-4c6b-a168-b21b2498defe",
+      "name": "Voting",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2200,
+        1420
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "{\n  \"chatInput\": \"Aithletic an AI Driven Fitness App, that will personalized exercises based on user profile\"\n}\n"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "d8429574-325f-41c0-9487-3e3680816c03",
+      "name": "Routing",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        560,
+        680
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "{\n  \"chatInput\": \"tell me a joke about a cat\"\n}\n"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "85fcca7d-8d1d-4915-99cc-320e2ec6b3c9",
+      "name": "Prompt Chaining",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        460,
+        -20
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "{\n  \"topic\": \"obesity\"\n}\n"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "3d150392-6237-42aa-98f4-a4c76ef13bf7",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "position": [
+        400,
+        3420
+      ],
+      "webhookId": "03da4a05-c510-4577-b723-d695740de587",
+      "parameters": {
+        "options": {}
+      },
+      "typeVersion": 1.1
+    },
+    {
+      "id": "b29f99f2-fbaa-4e3d-b851-f518ceb03ff2",
+      "name": "Agents - O3-MINI",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        480,
+        3660
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "o3-mini",
+          "cachedResultName": "o3-mini"
+        },
+        "options": {}
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "24612323-2dd8-4bc4-86de-a76b359d70d0",
+      "name": "Get Events",
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "position": [
+        1060,
+        3640
+      ],
+      "parameters": {
+        "limit": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Limit', ``, 'number') }}",
+        "options": {},
+        "timeMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Before', ``, 'string') }}",
+        "timeMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('After', ``, 'string') }}",
+        "calendar": {
+          "__rl": true,
+          "mode": "list",
+          "value": "mahmutktech98@gmail.com",
+          "cachedResultName": "mahmutktech98@gmail.com"
+        },
+        "operation": "getAll"
+      },
+      "typeVersion": 1.3
+    },
+    {
+      "id": "7921baec-03a4-47b8-9d0f-a784accc65af",
+      "name": "Create Calendar Event",
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "position": [
+        940,
+        3640
+      ],
+      "parameters": {
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}",
+        "calendar": {
+          "__rl": true,
+          "mode": "list",
+          "value": "mahmutktech98@gmail.com",
+          "cachedResultName": "mahmutktech98@gmail.com"
+        },
+        "additionalFields": {
+          "summary": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Summary', `Event Title`, 'string') }}",
+          "attendees": [
+            "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Attendees', `Event Attendees`, 'string') }}"
+          ],
+          "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', ``, 'string') }}"
+        }
+      },
+      "typeVersion": 1.3
+    },
+    {
+      "id": "39e0d2ed-6841-4104-b041-b0e2d96b52ea",
+      "name": "Calendar Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        600,
+        3420
+      ],
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are a helpful calendar assistant.\n\nContext:\nCurrent Date Time: {{ $now }}}"
+        }
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "ae2f1c28-90ea-483d-99cb-810033b87f3d",
+      "name": "Orchestrator",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        540,
+        2060
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "{\n  \"input\": \"Please translate the following to Spanish, Turkish, and French -> Hello! I just arrived in Barcelona, and I’m already captivated by the city’s vibrant atmosphere. The weather is sunny and warm, perfect for exploring the narrow streets and sampling local tapas. Tomorrow, I plan to visit the famous Sagrada Família, and next week I’ll head to Madrid for a brief business meeting. Traveling always broadens my perspective, and I can’t wait to discover more of Spain’s rich culture and history.\"\n}\n"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "b0886668-3fcc-4f37-b827-189f6713de7f",
+      "name": "Orchestrator Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        720,
+        2060
+      ],
+      "parameters": {
+        "text": "={{ $json.input }}\n",
+        "options": {
+          "systemMessage": "=You are an Orchestrator. A user will provide a text and the language(s) they want to translate the text into.\n\nYour goal:\n1. Identify all languages the user wants to translate the text into.\n2. Identify the text\".\n3. Produce a valid JSON array where each element has:\n   {\n     \"Language\": \"<target language>\",\n     \"text\": \"<original text>\"\n   }\n\nConstraints:\n- Output only the JSON array, nothing else.\n- If multiple languages are listed, create one object per language.\n- If no languages are mentioned, output an empty array.\n\nExample Input:\n\"Please translate the following to Spanish, Turkish, and French -> Hello! I just arrived in Barcelona...\"\n\nExpected Output (valid JSON):\n[\n  {\n    \"Language\": \"Spanish\",\n    \"text\": \"Hello! I just arrived in Barcelona...\"\n  },\n  {\n    \"Language\": \"Turkish\",\n    \"text\": \"Hello! I just arrived in Barcelona...\"\n  },\n  {\n    \"Language\": \"French\",\n    \"text\": \"Hello! I just arrived in Barcelona...\"\n  }\n]"
+        },
+        "promptType": "define",
+        "hasOutputParser": true
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "7d78b346-0619-4251-953d-e4fb48252278",
+      "name": "O3-mini-Routing2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        1160,
+        2300
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "o3-mini",
+          "cachedResultName": "o3-mini"
+        },
+        "options": {}
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "99bdce63-1f15-47d9-9940-c4987ae5b51f",
+      "name": "O3-mini-P",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        620,
+        1280
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "o3-mini",
+          "cachedResultName": "o3-mini"
+        },
+        "options": {}
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "2c7a0d5f-99fe-4566-a632-283da549c3c3",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        620,
+        3700
+      ],
+      "parameters": {},
+      "typeVersion": 1.3
+    },
+    {
+      "id": "e25feefb-ae70-4c8f-865e-76a92950c84c",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "position": [
+        1060,
+        2060
+      ],
+      "parameters": {
+        "options": {},
+        "fieldToSplitOut": "output"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "8842230d-9e78-4339-aca7-04e00ce57ed5",
+      "name": "Translation Array",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "position": [
+        880,
+        2320
+      ],
+      "parameters": {
+        "jsonSchemaExample": "[\n  {\n    \"Language\": \"Spanish\",\n    \"text\": \"Sample text, Hi there, My name is John\"\n  }\n]"
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "ef929e73-e7a9-4e9e-b849-f731967974db",
+      "name": "Translated Text",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        1560,
+        2060
+      ],
+      "parameters": {
+        "options": {},
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "output"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "06055c74-0503-4d69-8d3d-b83bfa64ad23",
+      "name": "Translator Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1240,
+        2060
+      ],
+      "parameters": {
+        "text": "=You are a Translator Agent.\n\nPlease translate the text below into: {{ $json.Language }}\n\nText to translate:\n{{ $json.text }}\n\nOutput only the translated text With the translated language as the title, with no additional commentary.",
+        "options": {},
+        "promptType": "define"
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "7c2e9288-6ae1-4281-8ff1-3a1087e618b6",
+      "name": "Gmail3",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        1780,
+        2060
+      ],
+      "webhookId": "39a7f851-3576-477c-8ec6-792a05230062",
+      "parameters": {
+        "sendTo": "oncekod98@gmail.com",
+        "message": "={{ $json.output.join('\\n\\n') }}",
+        "options": {},
+        "subject": "=Translated Text",
+        "emailType": "text"
+      },
+      "typeVersion": 2.1
+    },
+    {
+      "id": "b928dc86-539a-41a8-aeb6-ab0fb2778f23",
+      "name": "Key Points Generator",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        600,
+        -20
+      ],
+      "parameters": {
+        "text": "=List concise, structured key points and angles about the following topic: {{ $json.topic }}",
+        "options": {},
+        "promptType": "define"
+      },
+      "retryOnFail": false,
+      "typeVersion": 1.7
+    },
+    {
+      "id": "be148bae-f695-44b3-b0d5-b2852cc17768",
+      "name": "Gmail4",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        1480,
+        -20
+      ],
+      "webhookId": "4e66298d-d364-4ea5-846c-7673a94a9839",
+      "parameters": {
+        "sendTo": "=mahmutktech98@gmail.com",
+        "message": "={{ $json.output }}",
+        "options": {},
+        "subject": "Prompt Chaining Demo"
+      },
+      "typeVersion": 2.1
+    },
+    {
+      "id": "db1f7119-595c-4eaf-ab14-6a6efd6ee54e",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.gmailTool",
+      "position": [
+        820,
+        3640
+      ],
+      "webhookId": "71a39428-8b08-4105-88fb-5c7ca0e4fa16",
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {},
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}"
+      },
+      "typeVersion": 2.1
+    },
+    {
+      "id": "f072193c-fdac-4e8f-9ea4-9b219582ec79",
+      "name": "Report Planner",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        900,
+        -20
+      ],
+      "parameters": {
+        "text": "=Using the following notes as a reference:\n{{$json.output}}\n\nCreate a report outline for \"{{$('Prompt Chaining').item.json.topic}}\".  \nInclude clearly named sections with brief descriptions, structured as follows:\n- Introduction\n- Main body sections\n- Conclusion",
+        "options": {},
+        "promptType": "define"
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "902729b6-c2a3-4526-b394-cbe4e89d0fcd",
+      "name": "Parse Patient Data",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        2860,
+        4280
+      ],
+      "parameters": {
+        "mode": "jsonKeyValue"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "2aac259e-c69c-4c84-9b3f-196728fff5d8",
+      "name": "Initialize Workflow State",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        3140,
+        4280
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "{\n  \"workflowState\": {\n    \"currentPhase\": \"initialization\",\n    \"patientId\": null,\n    \"letterType\": \"discharge\",\n    \"sections\": {\n      \"patientDemographics\": {\n        \"status\": \"pending\",\n        \"data\": null\n      },\n      \"diagnosis\": {\n        \"status\": \"pending\",\n        \"data\": null\n      },\n      \"medicalHistory\": {\n        \"status\": \"pending\",\n        \"data\": null\n      },\n      \"treatment\": {\n        \"status\": \"pending\",\n        \"data\": null\n      },\n      \"medication\": {\n        \"status\": \"pending\",\n        \"data\": null\n      },\n      \"followUp\": {\n        \"status\": \"pending\",\n        \"data\": null\n      }\n    },\n    \"quality\": {\n      \"status\": \"pending\",\n      \"feedbackCycles\": 0\n    }\n  },\n  \"patientData\": $json.data,\n  \"templateData\": {\n    \"hospitalName\": \"University Medical Center\",\n    \"departmentName\": \"Internal Medicine\",\n    \"hospitalAddress\": \"123 Medical Center Blvd, Medicalville, 12345\",\n    \"phoneNumber\": \"+1-555-123-4567\",\n    \"faxNumber\": \"+1-555-123-4568\",\n    \"headerLogo\": \"hospital_logo.png\"\n  }\n}"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "d75b9ad1-9b55-4b03-aa1b-571376651296",
+      "name": "Router LLM",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        3520,
+        4460
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "hf.co/unsloth/gemma-3-4b-it-GGUF:Q4_K_M",
+          "cachedResultName": "hf.co/unsloth/gemma-3-4b-it-GGUF:Q4_K_M"
+        },
+        "options": {}
+      },
+      "credentials": {
+        "openAiApi": {
+          "id": "tRHsMPxbW4YJD93X",
+          "name": "Ollama OpenAI"
+        }
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "1e6101e0-3b65-4057-b17a-ff20eddef999",
+      "name": "LLM Router",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        3580,
+        4280
+      ],
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a medical documentation router that determines the appropriate workflow for medical document generation requests.\n\nYou will receive patient data and determine what type of discharge letter is needed based on the available information.\n\nFormat your response as JSON:\n{\n  \"documentType\": \"dischargeLetter\",\n  \"department\": \"[department determined from data]\",\n  \"patientId\": \"[extracted ID if available]\",\n  \"requiredSections\": [\"list\", \"of\", \"required\", \"sections\"],\n  \"additionalInstructions\": \"[any special requirements]\"\n}"
+        }
+      },
+      "typeVersion": 1.8
+    },
+    {
+      "id": "9458ecae-872d-4ea6-bf0e-f604991bdef4",
+      "name": "Update Workflow State",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        3960,
+        4280
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "={\n  \"workflowState\": {\n    ...($json.workflowState),\n    \"currentPhase\": \"routing\",\n    \"routingDecision\": $json.output\n  }\n}"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "b3f5bf63-112e-450a-a882-bbfd527137c9",
+      "name": "Sample Data Format",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2360,
+        3720
+      ],
+      "parameters": {
+        "width": 460,
+        "height": 440,
+        "content": "# Sample Patient Data Input\n\nProvide a sample text file containing patient data in this format:\n\n```\nPatientID: 12345\nName: John Doe\nDateOfBirth: 15-05-1970\nAdmissionDate: 10-01-2024\nDischargeDate: 20-01-2024\nPrimaryDiagnosis: Type 2 Diabetes Mellitus with hyperglycemia\nSecondaryDiagnoses: Essential Hypertension, Hyperlipidemia\nProcedures: Blood glucose monitoring, Insulin therapy adjustment\nMedications: Metformin 1000mg BID, Lisinopril 10mg daily, Atorvastatin 20mg at bedtime\nFollowup: Endocrinology clinic in 2 weeks\n```\n\nThis text would be uploaded or entered by the user."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "fa3b101f-d20f-4772-acc9-9351aa0208c1",
+      "name": "State Management Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3060,
+        4060
+      ],
+      "parameters": {
+        "width": 260,
+        "height": 220,
+        "content": "# State Management\n\nThis node initializes a JSON structure that will track:\n1. Overall workflow state\n2. Status of each section\n3. Patient data\n4. Template information\n\nThis state will be updated throughout the workflow."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "dc8a92e8-dccf-4d3e-b271-6a759c123ff0",
+      "name": "Router Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3580,
+        4060
+      ],
+      "parameters": {
+        "width": 260,
+        "height": 200,
+        "content": "# LLM Router\n\nThis agent determines what type of discharge letter is needed and which sections should be included based on the patient data."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "58178eda-c7f2-4930-bff0-e02324ab80ef",
+      "name": "Read/Write Files from Disk",
+      "type": "n8n-nodes-base.readWriteFile",
+      "position": [
+        2400,
+        4280
+      ],
+      "parameters": {
+        "options": {
+          "fileName": "ward_documentation.txt"
+        },
+        "fileSelector": "/data/shared/"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "ba00b869-b28b-450b-9146-529dc3e28d88",
+      "name": "Extract from File",
+      "type": "n8n-nodes-base.extractFromFile",
+      "position": [
+        2600,
+        4280
+      ],
+      "parameters": {
+        "options": {},
+        "operation": "text"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "dcf5d060-6b6c-4c34-93d4-5b2595e95270",
+      "name": "Ward Documentation Reader",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        2580,
+        3460
+      ],
+      "parameters": {},
+      "typeVersion": 1.1
+    },
+    {
+      "id": "4aa3a60b-9801-4953-b170-45a01e1ef01b",
+      "name": "Handle File Read Result",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        2780,
+        3460
+      ],
+      "parameters": {
+        "functionCode": "if (Object.keys($input.first().json).includes('error')) {\n  // Handle error in file reading\n  return {\n    success: false,\n    error: $input.first().json.error,\n    errorType: $input.first().json.errorType || 'unknown_error'\n  };\n} else {\n  // Successful file read\n  return {\n    success: true,\n    patientData: $input.first().json.patientData,\n    rawFileContent: $input.first().json.rawFileContent\n  };\n}"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "ca8e029e-a9a1-41a7-8a45-fe27fd37e289",
+      "name": "File Read Success?",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        2980,
+        3460
+      ],
+      "parameters": {
+        "options": {},
+        "conditions": {
+          "options": {
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c7cd25e9-31ab-4c2a-8880-0148aea726c2",
+              "operator": {
+                "type": "boolean",
+                "operation": "equals",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.success }}",
+              "rightValue": "true"
+            }
+          ]
+        }
+      },
+      "typeVersion": 2
+    },
+    {
+      "id": "c2576d14-79d9-4508-a112-0fbe91e83086",
+      "name": "Set Error State",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        3200,
+        3560
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "{\n  \"success\": false,\n  \"error\": \"Failed to read or parse ward documentation file\",\n  \"details\": $json.error,\n  \"errorType\": $json.errorType\n}"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "d61c35f3-fc35-431b-913d-7f96936d693e",
+      "name": "Parser Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2560,
+        3240
+      ],
+      "parameters": {
+        "width": 300,
+        "height": 320,
+        "content": "# Ward Documentation Parser\n\nThis node reads the ward documentation file from the specified path and parses it into structured data with these sections:\n\n- Demographics\n- Admission details\n- Diagnoses\n- Procedures\n- Medications\n- Course of treatment\n- Lab results\n- Follow-up instructions\n\nThe parser is designed to handle various text formats commonly found in medical documentation."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "13bd762a-bfff-47fc-bc8c-2c3462e2db18",
+      "name": "Error Handling Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2880,
+        3240
+      ],
+      "parameters": {
+        "width": 260,
+        "content": "# Error Handling\n\nThese nodes check if the file was read successfully and handle any errors that might occur during the file reading or parsing process."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "0763af6b-ee08-4d88-8946-76a81180ea47",
+      "name": "Router Agent Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3580,
+        3240
+      ],
+      "parameters": {
+        "width": 260,
+        "height": 220,
+        "content": "# Router Agent\n\nThis LLM agent analyzes the patient data to determine:\n- Appropriate letter type\n- Required and optional sections\n- Special instructions based on the patient's condition\n- Medical specialty relevant to the case"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "303a43b2-875e-4df5-aa3c-a2dae0542483",
+      "name": "Initialize Workflow State1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        3200,
+        3400
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "{\n  \"workflowState\": {\n    \"currentPhase\": \"initialization\",\n    \"patientId\": \"{{ $json.patientData.patientId || 'unknown' }}\",\n    \"letterType\": \"discharge\",\n    \"sections\": {\n      \"patientDemographics\": {\n        \"status\": \"pending\",\n        \"data\": $json.patientData.demographics\n      },\n      \"diagnosis\": {\n        \"status\": \"pending\",\n        \"data\": {\n          \"primary\": $json.patientData.primaryDiagnosis,\n          \"secondary\": $json.patientData.secondaryDiagnoses\n        }\n      },\n      \"medicalHistory\": {\n        \"status\": \"pending\",\n        \"data\": null\n      },\n      \"treatment\": {\n        \"status\": \"pending\",\n        \"data\": $json.patientData.procedures\n      },\n      \"medication\": {\n        \"status\": \"pending\",\n        \"data\": $json.patientData.medications\n      },\n      \"courseOfTreatment\": {\n        \"status\": \"pending\",\n        \"data\": $json.patientData.courseOfTreatment\n      },\n      \"labResults\": {\n        \"status\": \"pending\",\n        \"data\": $json.patientData.labResults\n      },\n      \"followUp\": {\n        \"status\": \"pending\",\n        \"data\": $json.patientData.followUp\n      }\n    },\n    \"quality\": {\n      \"status\": \"pending\",\n      \"feedbackCycles\": 0\n    }\n  },\n  \"parsedPatientData\": $json.patientData,\n  \"rawPatientData\": $json.rawFileContent,\n  \"templateData\": {\n    \"hospitalName\": \"University Medical Center\",\n    \"departmentName\": \"Internal Medicine\",\n    \"hospitalAddress\": \"123 Medical Center Blvd, Medicalville, 12345\",\n    \"phoneNumber\": \"+1-555-123-4567\",\n    \"faxNumber\": \"+1-555-123-4568\",\n    \"headerLogo\": \"hospital_logo.png\"\n  }\n}"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "87aa6d80-2b29-41bb-9e52-ef3fdfce816c",
+      "name": "Router LLM1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        3620,
+        3660
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {}
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "1b022ca1-58a6-4c28-a783-5e13a78ecc77",
+      "name": "LLM Router1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        3620,
+        3480
+      ],
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a medical documentation router that determines the appropriate workflow for medical document generation requests.\n\nYou will receive patient data and determine what type of discharge letter is needed based on the available information. Analyze the patient's condition, treatments, and department to determine which sections are required in the discharge letter.\n\nFormat your response as JSON:\n{\n  \"documentType\": \"dischargeLetter\",\n  \"department\": \"[department determined from data]\",\n  \"specialtyType\": \"[specialty type, e.g., cardiology, orthopedics, etc.]\",\n  \"patientId\": \"[extracted ID if available]\",\n  \"requiredSections\": [\"list\", \"of\", \"required\", \"sections\"],\n  \"optionalSections\": [\"list\", \"of\", \"optional\", \"sections\"],\n  \"additionalInstructions\": \"[any special requirements based on patient's condition]\"\n}"
+        }
+      },
+      "typeVersion": 1.8
+    },
+    {
+      "id": "100ce19d-3a6e-4a3a-bc09-83861fa5fe81",
+      "name": "Update Workflow State1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        3940,
+        3420
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "={\n  \"workflowState\": {\n    ...($json.workflowState),\n    \"currentPhase\": \"routing\",\n    \"routingDecision\": $json.output\n  }\n}"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "d5110633-8bb0-444a-9843-6cd374f19e17",
+      "name": "State Management Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3200,
+        3160
+      ],
+      "parameters": {
+        "width": 260,
+        "height": 220,
+        "content": "# State Management\n\nThis node creates a comprehensive workflow state that includes:\n- Patient data organized by section\n- Current workflow phase\n- Document section statuses\n- Template information\n\nThis state will be updated throughout the workflow."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "2f3ba8bc-5e6c-4872-8107-61319ddbd027",
+      "name": "If1",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        4540,
+        2740
+      ],
+      "parameters": {
+        "options": {},
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c7cd25e9-31ab-4c2a-8880-0148aea726c2",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.output.pass }}",
+              "rightValue": ""
+            }
+          ]
+        }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "030c473c-a94e-4ca9-a85d-1a010168a60f",
+      "name": "Structured Output Parser1",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "position": [
+        4400,
+        2960
+      ],
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"pass\": true,\n\t\"feedback\": \"this is empty when pass is true\"\n}"
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "a8bc505b-2236-451c-a0b9-35ed7e5a47f7",
+      "name": "EO - o3 mini1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        3640,
+        2940
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "qwen2.5:14b-corrected8k",
+          "cachedResultName": "qwen2.5:14b-corrected8k"
+        },
+        "options": {}
+      },
+      "credentials": {
+        "openAiApi": {
+          "id": "tRHsMPxbW4YJD93X",
+          "name": "Ollama OpenAI"
+        }
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "36984ace-d67f-4b7d-ac23-5aa0d620618f",
+      "name": "feedback1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        4120,
+        2980
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "={\n  \"currentAnamnesis\": {{ JSON.stringify($('Anamnesis Writer').last().json.output) }},\n  \"feedback\": {{  JSON.stringify($json.output.feedback) }}\n}"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "1ea01e33-add9-4f54-a289-86aae35daf18",
+      "name": "Postgres Chat Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "position": [
+        3860,
+        2940
+      ],
+      "parameters": {
+        "tableName": "=llm_memory",
+        "sessionKey": "={{ $('Patient Data').item.json.json_agg[0].encounter_id }}.anamnesis.agent.supervisor_id",
+        "sessionIdType": "customKey",
+        "contextWindowLength": 3
+      },
+      "credentials": {
+        "postgres": {
+          "id": "i83SgkPKmlQ785tT",
+          "name": "Postgres account"
+        }
+      },
+      "typeVersion": 1.3
+    },
+    {
+      "id": "f98052ab-32c0-4163-99a6-965fd2182af8",
+      "name": "Patient Data",
+      "type": "n8n-nodes-base.postgres",
+      "position": [
+        2980,
+        2940
+      ],
+      "parameters": {
+        "query": "SELECT json_agg(row_to_json(a))\nFROM med_disc.anamnesis a\nWHERE encounter_id = $1;",
+        "options": {
+          "queryReplacement": "={{ $json.encounter_id }}"
+        },
+        "operation": "executeQuery"
+      },
+      "credentials": {
+        "postgres": {
+          "id": "i83SgkPKmlQ785tT",
+          "name": "Postgres account"
+        }
+      },
+      "typeVersion": 2.6
+    },
+    {
+      "id": "73e2f9b7-1b3b-4cbc-8fa8-0a50c9793448",
+      "name": "Template1",
+      "type": "n8n-nodes-base.postgres",
+      "position": [
+        4420,
+        3220
+      ],
+      "parameters": {
+        "query": "SELECT json_agg(row_to_json(a))\nFROM med_disc.llm_prompt_template a\nWHERE name = $1;",
+        "options": {
+          "queryReplacement": "anamnesis_template"
+        },
+        "operation": "executeQuery"
+      },
+      "credentials": {
+        "postgres": {
+          "id": "i83SgkPKmlQ785tT",
+          "name": "Postgres account"
+        }
+      },
+      "typeVersion": 2.6
+    },
+    {
+      "id": "720c9d2e-5d26-43ca-a1d0-7e0122abc9b9",
+      "name": "Anamnesis Writer",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        3840,
+        2740
+      ],
+      "parameters": {
+        "text": "=## Feedback (if any):\n{{ $json.feedback }}\n\nChief Complaint:\n{{ $('Patient Data').item.json.json_agg[0].chief_complaint }}\nVegetative State:\n{{ $('Patient Data').item.json.json_agg[0].vegetative_state }}\nHistory of Present Illness:\n{{ $('Patient Data').item.json.json_agg[0].history_of_present_illness }}\nPast Medical History:\n{{ $('Patient Data').item.json.json_agg[0].past_medical_history }}\nFamily History:\n{{ $('Patient Data').item.json.json_agg[0].family_history }}\nSocial History:\n{{ $('Patient Data').item.json.json_agg[0].social_history }}\nReview of Systems:\n{{ $('Patient Data').item.json.json_agg[0].review_of_systems }}",
+        "options": {
+          "maxIterations": 5,
+          "systemMessage": "={{ $('Template Creator').item.json.json_agg[0].template_content }}"
+        },
+        "promptType": "define"
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "8650ee3d-ede3-4e1e-b1e9-00df9627cb51",
+      "name": "Anamnesis Evaluator",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        4220,
+        2740
+      ],
+      "parameters": {
+        "text": "=Anamnesis Content: {{$json.output}}",
+        "options": {
+          "systemMessage": "={{ $('Template Evaluator').item.json.json_agg[0].template_content }}"
+        },
+        "promptType": "define",
+        "hasOutputParser": true
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "42d4e4ac-bfb2-40fd-b189-eda9e2de2212",
+      "name": "Template Creator",
+      "type": "n8n-nodes-base.postgres",
+      "position": [
+        3120,
+        2940
+      ],
+      "parameters": {
+        "query": "SELECT json_agg(row_to_json(a))\nFROM med_disc.llm_prompt_template a\nWHERE name = $1;",
+        "options": {
+          "queryReplacement": "anamnesis_template"
+        },
+        "operation": "executeQuery"
+      },
+      "credentials": {
+        "postgres": {
+          "id": "i83SgkPKmlQ785tT",
+          "name": "Postgres account"
+        }
+      },
+      "typeVersion": 2.6
+    },
+    {
+      "id": "071badaf-5a3c-4380-9eb2-535177f165e4",
+      "name": "Template Evaluator",
+      "type": "n8n-nodes-base.postgres",
+      "position": [
+        3260,
+        2940
+      ],
+      "parameters": {
+        "query": "SELECT json_agg(row_to_json(a))\nFROM med_disc.llm_prompt_template a\nWHERE name = $1;",
+        "options": {
+          "queryReplacement": "anamnesis_evaluator"
+        },
+        "operation": "executeQuery"
+      },
+      "credentials": {
+        "postgres": {
+          "id": "i83SgkPKmlQ785tT",
+          "name": "Postgres account"
+        }
+      },
+      "typeVersion": 2.5
+    },
+    {
+      "id": "83a08bcd-d44a-41e5-80b8-7e37ad36ce7e",
+      "name": "If2",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        4480,
+        2240
+      ],
+      "parameters": {
+        "options": {},
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c7cd25e9-31ab-4c2a-8880-0148aea726c2",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.output.pass }}",
+              "rightValue": ""
+            }
+          ]
+        }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "4c6980f3-e7ce-446d-8756-373c1d2bfd5b",
+      "name": "Structured Output Parser2",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "position": [
+        4340,
+        2460
+      ],
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"pass\": true,\n\t\"feedback\": \"this is empty when pass is true\"\n}"
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "e6db8e65-0b88-460b-94ef-442098735467",
+      "name": "EO - o3 mini2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        3580,
+        2440
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "qwen2.5:14b-corrected8k",
+          "cachedResultName": "qwen2.5:14b-corrected8k"
+        },
+        "options": {}
+      },
+      "credentials": {
+        "openAiApi": {
+          "id": "tRHsMPxbW4YJD93X",
+          "name": "Ollama OpenAI"
+        }
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "4676c848-ae8e-4b77-b65e-2bb6a51882a6",
+      "name": "feedback2",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        4060,
+        2480
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "={\n  \"currentAnamnesis\": {{ JSON.stringify($('Diagnosis Writer').last().json.output) }},\n  \"feedback\": {{  JSON.stringify($json.output.feedback) }}\n}"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "942f99fe-7008-4133-839f-59747510843c",
+      "name": "Postgres Chat Memory1",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "position": [
+        3800,
+        2440
+      ],
+      "parameters": {
+        "tableName": "=llm_memory",
+        "sessionKey": "={{ $('Patient Data1').item.json.json_agg[0].encounter_id }}.diagnosis.agent.supervisor_id",
+        "sessionIdType": "customKey",
+        "contextWindowLength": 3
+      },
+      "credentials": {
+        "postgres": {
+          "id": "i83SgkPKmlQ785tT",
+          "name": "Postgres account"
+        }
+      },
+      "typeVersion": 1.3
+    },
+    {
+      "id": "b7e1675f-840e-43b2-a119-921010c4dede",
+      "name": "Patient Data1",
+      "type": "n8n-nodes-base.postgres",
+      "position": [
+        2920,
+        2440
+      ],
+      "parameters": {
+        "query": "SELECT json_agg(row_to_json(a))\nFROM med_disc.diagnosis a\nWHERE encounter_id = $1;",
+        "options": {
+          "queryReplacement": "E001"
+        },
+        "operation": "executeQuery"
+      },
+      "credentials": {
+        "postgres": {
+          "id": "i83SgkPKmlQ785tT",
+          "name": "Postgres account"
+        }
+      },
+      "typeVersion": 2.6
+    },
+    {
+      "id": "4e7c9ae7-7d05-405a-939b-39aa0ecc0a70",
+      "name": "Template Creator1",
+      "type": "n8n-nodes-base.postgres",
+      "position": [
+        3060,
+        2440
+      ],
+      "parameters": {
+        "query": "SELECT json_agg(row_to_json(a))\nFROM med_disc.llm_prompt_template a\nWHERE name = $1;",
+        "options": {
+          "queryReplacement": "anamnesis_template"
+        },
+        "operation": "executeQuery"
+      },
+      "credentials": {
+        "postgres": {
+          "id": "i83SgkPKmlQ785tT",
+          "name": "Postgres account"
+        }
+      },
+      "typeVersion": 2.6
+    },
+    {
+      "id": "fbd8e901-ea59-4dc6-8a97-be48b7c41610",
+      "name": "Template Evaluator1",
+      "type": "n8n-nodes-base.postgres",
+      "position": [
+        3200,
+        2440
+      ],
+      "parameters": {
+        "query": "SELECT json_agg(row_to_json(a))\nFROM med_disc.llm_prompt_template a\nWHERE name = $1;",
+        "options": {
+          "queryReplacement": "anamnesis_evaluator"
+        },
+        "operation": "executeQuery"
+      },
+      "credentials": {
+        "postgres": {
+          "id": "i83SgkPKmlQ785tT",
+          "name": "Postgres account"
+        }
+      },
+      "typeVersion": 2.5
+    },
+    {
+      "id": "8977338f-ffbd-4830-9097-77dd3f6f202f",
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        2840,
+        2940
+      ],
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "encounter_id"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1.1
+    },
+    {
+      "id": "9a9ba876-52a3-4727-9cda-f7c176ab9121",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [
+        4900,
+        2940
+      ],
+      "parameters": {
+        "options": {}
+      },
+      "typeVersion": 1.1
+    },
+    {
+      "id": "c0d30462-319c-45bb-bb9a-0369cfe19b5f",
+      "name": "Diagnosis Writer",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        3780,
+        2240
+      ],
+      "parameters": {
+        "text": "=## Feedback (if any):\n{{ $json.feedback }}\n\nChief Complaint:\n{{ $('Patient Data1').item.json.json_agg[0].chief_complaint }}\nVegetative State:\n{{ $('Patient Data1').item.json.json_agg[0].vegetative_state }}\nHistory of Present Illness:\n{{ $('Patient Data1').item.json.json_agg[0].history_of_present_illness }}\nPast Medical History:\n{{ $('Patient Data1').item.json.json_agg[0].past_medical_history }}\nFamily History:\n{{ $('Patient Data1').item.json.json_agg[0].family_history }}\nSocial History:\n{{ $('Patient Data1').item.json.json_agg[0].social_history }}\nReview of Systems:\n{{ $('Patient Data1').item.json.json_agg[0].review_of_systems }}",
+        "options": {
+          "maxIterations": 5,
+          "systemMessage": "={{ $('Template Creator1').item.json.json_agg[0].template_content }}"
+        },
+        "promptType": "define"
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "8758060b-be57-44c6-8893-88da3dc38739",
+      "name": "Diagnosis Evaluator",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        4160,
+        2240
+      ],
+      "parameters": {
+        "text": "=Diagnosis Content: {{$json.output}}",
+        "options": {
+          "systemMessage": "={{ $('Template Evaluator1').item.json.json_agg[0].template_content }}"
+        },
+        "promptType": "define",
+        "hasOutputParser": true
+      },
+      "typeVersion": 1.7
+    },
+    {
+      "id": "ba57dd87-788a-47dd-9ce4-db5fe6ebc3b1",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        2420,
+        2120
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "id": "225fe2d4-a204-4ed7-b82d-f6f325c0978e",
+      "name": "Diagnosis Example",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2560,
+        2120
+      ],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "{\n  \"input\": \"Acute Ischemic Stroke – Left Middle Cerebral Artery (MCA) Territory, Hypertension (Essential/Primary Hypertension), Dyslipidemia, Mild Hepatic Steatosis\"\n}\n"
+      },
+      "typeVersion": 3.4
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "feedback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "feedback1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [],
+        [
+          {
+            "node": "feedback2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Voting": {
+      "main": [
+        [
+          {
+            "node": "OpenAI CopyWriter",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Anthropic CopyWriter",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Gemini CopyWriter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "O3-MINI": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Report Planner",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Routing": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "Restaurant Finder",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "Hotel Finder",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "Activity Finder",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "feedback": {
+      "main": [
+        [
+          {
+            "node": "Customer Support",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluator": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "O3-mini-P": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Restaurant Finder",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Hotel Finder",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Activity Finder",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Translator Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "feedback1": {
+      "main": [
+        [
+          {
+            "node": "Anamnesis Writer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "feedback2": {
+      "main": [
+        [
+          {
+            "node": "Diagnosis Writer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregator": {
+      "main": [
+        [
+          {
+            "node": "Sectioning Demo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Events": {
+      "ai_tool": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Router": {
+      "main": [
+        [
+          {
+            "node": "Update Workflow State",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "O3-MINI CW": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Gemini CopyWriter",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Router LLM": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "LLM Router",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sectioning": {
+      "main": [
+        [
+          {
+            "node": "Restaurant Finder",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Hotel Finder",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Activity Finder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "ai_tool": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Router1": {
+      "main": [
+        [
+          {
+            "node": "Update Workflow State1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Router LLM1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "LLM Router1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2.0 Flash CW": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "OpenAI CopyWriter",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "EO - o3 mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Customer Support",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Evaluator",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Classify Email",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hotel Finder": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Orchestrator": {
+      "main": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Patient Data": {
+      "main": [
+        [
+          {
+            "node": "Template Creator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Voting Merge": {
+      "main": [
+        [
+          {
+            "node": "CW Aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CW Aggregator": {
+      "main": [
+        [
+          {
+            "node": "CW Demo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude 3.5 CW": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Anthropic CopyWriter",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "EO - o3 mini1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Anamnesis Writer",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Anamnesis Evaluator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "EO - o3 mini2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Diagnosis Writer",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Diagnosis Evaluator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Classify Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Patient Data1": {
+      "main": [
+        [
+          {
+            "node": "Template Creator1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify Email": {
+      "main": [
+        [
+          {
+            "node": "Customer Support",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Report Planner": {
+      "main": [
+        [
+          {
+            "node": "Report Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Activity Finder": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "O3-mini-Routing": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Poem Generator",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Joke Generator",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Story Generator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt Chaining": {
+      "main": [
+        [
+          {
+            "node": "Key Points Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Poem Generator",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Joke Generator",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Story Generator",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Translated Text": {
+      "main": [
+        [
+          {
+            "node": "Gmail3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agents - O3-MINI": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anamnesis Writer": {
+      "main": [
+        [
+          {
+            "node": "Anamnesis Evaluator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer Support": {
+      "main": [
+        [
+          {
+            "node": "Evaluator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Diagnosis Writer": {
+      "main": [
+        [
+          {
+            "node": "Diagnosis Evaluator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "O3-mini-Routing2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Translator Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Report Generator": {
+      "main": [
+        [
+          {
+            "node": "Gmail4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Template Creator": {
+      "main": [
+        [
+          {
+            "node": "Template Evaluator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Translator Agent": {
+      "main": [
+        [
+          {
+            "node": "Translated Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude 3.5 Sonnet": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Report Generator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Parse Patient Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini CopyWriter": {
+      "main": [
+        [
+          {
+            "node": "Voting Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "OpenAI CopyWriter": {
+      "main": [
+        [
+          {
+            "node": "Voting Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restaurant Finder": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Template Creator1": {
+      "main": [
+        [
+          {
+            "node": "Template Evaluator1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Translation Array": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2.0 Flash Thinking": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Key Points Generator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "File Read Success?": {
+      "main": [
+        [
+          {
+            "node": "Initialize Workflow State1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Error State",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Orchestrator Agent": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Patient Data": {
+      "main": [
+        [
+          {
+            "node": "Initialize Workflow State",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Template Evaluator": {
+      "main": [
+        [
+          {
+            "node": "Anamnesis Writer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anamnesis Evaluator": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Diagnosis Evaluator": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Template Evaluator1": {
+      "main": [
+        [
+          {
+            "node": "Diagnosis Writer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic CopyWriter": {
+      "main": [
+        [
+          {
+            "node": "Voting Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Key Points Generator": {
+      "main": [
+        [
+          {
+            "node": "Report Planner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Anamnesis Writer",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Calendar Event": {
+      "ai_tool": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "Diagnosis Writer",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Handle File Read Result": {
+      "main": [
+        [
+          {
+            "node": "File Read Success?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Evaluator",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initialize Workflow State": {
+      "main": [
+        [
+          {
+            "node": "LLM Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Anamnesis Evaluator",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser2": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Diagnosis Evaluator",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initialize Workflow State1": {
+      "main": [
+        [
+          {
+            "node": "LLM Router1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Calendar Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Patient Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Diagnosis Example",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ea9ff68c-8fc0-40b0-aa5d-48217cda89f3",
+  "meta": {
+    "instanceId": "73cb7a3e883df514bb47e8d1b34526d30e2abb8f56cd99f10d5948a1e11b25aa"
+  },
+  "id": "hrnPh6dXgIbGVzIk",
+  "tags": []
+}

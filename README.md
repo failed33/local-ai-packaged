@@ -133,14 +133,14 @@ python start_services.py --profile gpu-amd
 If you're using a Mac with an M1 or newer processor, you can't expose your GPU to the Docker instance, unfortunately. There are two options in this case:
 
 1. Run the starter kit fully on CPU:
-   ```bash
+```bash
    python start_services.py --profile cpu
-   ```
+```
 
 2. Run Ollama on your Mac for faster inference, and connect to that from the n8n instance:
-   ```bash
+```bash
    python start_services.py --profile none
-   ```
+```
 
    If you want to run Ollama on your mac, check the [Ollama homepage](https://ollama.com/) for installation instructions.
 
